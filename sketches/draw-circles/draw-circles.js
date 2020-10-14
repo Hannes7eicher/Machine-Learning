@@ -28,8 +28,8 @@ let ctx = canvas.getContext("2d");
 // draw the video, nose and eyes into the canvas
 function drawCameraIntoCanvas() {
 
-    ctx.canvas.width  = window.innerWidth;
-    ctx.canvas.height = window.innerHeight;
+   // ctx.canvas.width  = window.innerWidth;
+   // ctx.canvas.height = window.innerHeight;
 
   // draw the video element into the canvas
   //ctx.drawImage(video, 0, 0, video.width, video.height);
@@ -41,7 +41,6 @@ function drawCameraIntoCanvas() {
       const distance = Math.round(body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.rightWrist))
 
       // draw circle below on the second canvas
-      var c = document.getElementById("second_canvas");
       ctx.beginPath();
       ctx.arc(550, 360, distance,0, 2 * Math.PI);
       ctx.stroke();
