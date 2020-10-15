@@ -13,16 +13,17 @@ const bodies = new BodyStream ({
   
 let body
 var globalDistance = 0;
-console.log(globalDistance);
 
 bodies.addEventListener('bodiesDetected', (e) => {
   body = e.detail.bodies.getBodyAt(0)
   const leftWrist = body.getBodyPart(bodyParts.leftWrist)
   const rightWrist = body.getBodyPart(bodyParts.rightWrist)
   const distance = Math.round(body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.rightWrist))
+  
   globalDistance = distance;
-  document.getElementById('output').innerText = `Position of left wrist: ${leftWrist.position.x}`
+  document.getElementById('output').innerText = `Position of left wrist: ${distance}`
   body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.rightWrist)
+ // console.log(rightWrist.position.y);
 })
 
 // get elements
@@ -45,13 +46,19 @@ function drawCameraIntoCanvas() {
       // draw circle for left and right wrist
       const leftWrist = body.getBodyPart(bodyParts.leftWrist)
       const rightWrist = body.getBodyPart(bodyParts.rightWrist)
-      let pos1 = leftWrist.position.x;
-      let pos2 = rightWrist.position.y;
+      const distance = Math.round(body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.rightWrist))
+      let ballX = (leftWrist.position.x + rightWrist.position.x) / 2;
+      let ballY = (leftWrist.position.y + rightWrist.position.y) / 2;
+      let dis = distance -100;
+
+      if (dis <= 0) {
+          dis = 10; 
+      }
 
       // draw circle on canvas
       var c = document.getElementById("canvas");
       ctx.beginPath();
-      ctx.arc(pos1, pos2, 100,0, 2 * Math.PI);
+      ctx.arc(ballX, ballY, dis,0, 2 * Math.PI);
       ctx.fillStyle = 'black';
       ctx.stroke();
       ctx.fill();      
