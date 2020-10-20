@@ -3,8 +3,8 @@ let x = 0;
 let y = 0;
 
 // Speed - Velocity
-let vx = 500;
-let vy = 500;
+let vx = 5;
+let vy = 5;
 
 // Acceleration
 let ax = 0;
@@ -18,7 +18,7 @@ let video;
 let poseNet;
 let pose;
 let skeleton;
-var capture
+var capture;
 
 function setup() {
     createCanvas(640, 480);
@@ -53,17 +53,17 @@ function draw () {
       let d = dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
 
       let red = fill(255,0,0);
-      let yellow = fill(255,204,0);
-      ellipse(pose.leftWrist.x, pose.leftWrist.y, 64);
-      ellipse(pose.rightWrist.x, pose.rightWrist.y, 64);
-      ellipse(pose.leftAnkle.x, pose.leftAnkle.y, 64);
-      ellipse(pose.rightAnkle.x, pose.rightAnkle.y, 64);
+      //let yellow = fill(255,204,0);
+      ellipse(pose.leftWrist.x, pose.leftWrist.y, 64, 64);
+      ellipse(pose.rightWrist.x, pose.rightWrist.y, 64, 64);
+      ellipse(pose.leftAnkle.x, pose.leftAnkle.y, 64, 64);
+      ellipse(pose.rightAnkle.x, pose.rightAnkle.y, 64, 64);
 
       ballMove();
       ellipse(x, y, 64, 64);
 
       if (x > width) {
-          println('OFF SCREEN')
+          //println('OFF SCREEN')
       }
 
     }
@@ -80,6 +80,18 @@ function ballMove() {
   vy = vy + ax;
   y = y + vy * vMultiplier;
   x = x + vx * vMultiplier;
+
+  let WristL = pose.leftWrist;
+  let WristR = pose.rightWrist;
+  let movingBall = ellipse(x, y, 64, 64);
+  let d = dist(WristL.x, WristL.y, movingBall.width, movingBall.height);
+
+  console.log(d);
+
+  //if (x < rightWrist.x + )
+
+
+
 
   // Bounce when touch the edge of the canvas
   if (x < 0) {
@@ -101,5 +113,22 @@ function ballMove() {
 
   if (x > pose.rightWrist.x && x < pose.leftWrist.x) {
      fill(255, 204, 0);
+  }
+
+}
+
+function Bubble() {
+  this.x = random(100, 175);
+  this.y = random(100, 175);
+  this.r = 25;
+  this.col = color(255);
+  
+  this.display = function() {
+    ellipse(this.x, this.y, this.r*2);
+    fill(this.col);
+  }
+  
+  this.changeColor = function() {
+    this.col = color(150);
   }
 }
