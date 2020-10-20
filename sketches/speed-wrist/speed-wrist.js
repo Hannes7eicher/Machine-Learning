@@ -16,7 +16,7 @@ let body
 bodies.addEventListener('bodiesDetected', (e) => {
   body = e.detail.bodies.getBodyAt(0)
   const distance = Math.round(body.getDistanceBetweenBodyParts(bodyParts.leftShoulder, bodyParts.rightShoulder))
-  document.getElementById('output').innerText = `Distance between Shoulder-knee: ${distance}`
+  document.getElementById('output').innerText = `Speed of right wrist: ${speed}`
   body.getDistanceBetweenBodyParts(bodyParts.leftShoulder, bodyParts.rightShoulder)
 })
 
@@ -35,20 +35,20 @@ function drawCameraIntoCanvas() {
   //ctx.drawImage(video, 0, 0, video.width, video.height);
   
   if (body) {
-      // draw circle for left and right Shoulder
-      const leftKnee = body.getBodyPart(bodyParts.leftShoulder)
-      const rightKnee = body.getBodyPart(bodyParts.rightKnee)
-      const distance = Math.round(body.getDistanceBetweenBodyParts(bodyParts.leftShoulder, bodyParts.rightKnee))
+      // draw circle according to right wrist speed
+      const rightWrist = body.getBodyPart(bodyParts.rightWrist);
+      const speed = Math.round(body.getBodyPart(bodyParts.rightWrist));
 
-      var c = document.getElementById("canvas");
+      var canvas = document.getElementById("canvas");
       ctx.beginPath();
-      ctx.arc(550, 360, distance,0, 2 * Math.PI);
-      ctx.fillStyle = 'black';
+      ctx.arc(550, 360, speed, 0, 2 * Math.PI);
+      ctx.fillStyle = 'salmon';
       ctx.stroke();
       ctx.fill();
   }
   requestAnimationFrame(drawCameraIntoCanvas)
 }
+
 
 /* ----- run ------ */
 
