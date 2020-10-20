@@ -13,13 +13,12 @@ function setup() {
 
 
 function gotPoses(poses) {
-    console.log(poses);
-    if (poses.length > 0) {
-        pose = poses[0].pose;
-        skeleton = poses[0].skeleton;
-    }
-
-}
+    // console.log(poses);
+     if (poses.length > 0) {
+         pose = poses[0].pose;
+         skeleton = poses[0].skeleton;
+     }
+ }
 
 
 function modelLoaded() {
@@ -28,9 +27,11 @@ function modelLoaded() {
 
 
 function draw() {
+    push();
     image(video, 0, 0);
 
-    if (pose) {
+    if (pose) { 
+
         fill(255, 0, 0);
         ellipse(pose.nose.x, pose.nose.y, 64);
     }

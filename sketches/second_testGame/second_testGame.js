@@ -13,11 +13,14 @@ const bodies = new BodyStream ({
 
 let body
 
+//Variables for drawing the ball
+let color = "green";
+
 bodies.addEventListener('bodiesDetected', (e) => {
 body = e.detail.bodies.getBodyAt(0)
-const distance = Math.round(body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.rightWrist))
+const distance = Math.round(body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.leftAnkle))
 document.getElementById('output').innerText = `Distance between wrists: ${distance}`
-body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.rightWrist)
+body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.leftAnkle)
 })
 
 // get elements
@@ -33,20 +36,21 @@ ctx.drawImage(video, 0, 0, video.width, video.height);
 
 if (body) {
     // draw circle for left and right wrist
+    const distance = Math.round(body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.leftAnkle))
     const leftWrist = body.getBodyPart(bodyParts.leftWrist)
     const rightWrist = body.getBodyPart(bodyParts.rightWrist)
+    const leftEye = body.getBodyPart(bodyParts.rightEye)
+    const rightEye = body.getBodyPart(bodyParts.leftEye)
+    const leftAnkle = body.getBodyPart(bodyParts.leftAnkle)
 
-    // draw left wrist
-    ctx.beginPath();
-    ctx.arc(leftWrist.position.x, leftWrist.position.y, 10, 0, 2 * Math.PI);
-    ctx.fillStyle = 'white'
-    ctx.fill()
+  drawBall();
 
-    // draw right wrist
-    ctx.beginPath();
-    ctx.arc(rightWrist.position.x, rightWrist.position.y, 10, 0, 2 * Math.PI);
-    ctx.fillStyle = 'white'
-    ctx.fill()
+  if (distance < 50) {
+    color = "red";
+  } else { 
+    color = "green";
+  }
+
 }
 requestAnimationFrame(drawCameraIntoCanvas)
 }
@@ -57,3 +61,12 @@ requestAnimationFrame(drawCameraIntoCanvas)
 bodies.start()
 // draw video and body parts into canvas continously 
 drawCameraIntoCanvas();
+
+function drawBall() {
+    // Draw Ball
+    ctx.beginPath();
+    ctx.arc(250, 250, 50 ,0, 2 * Math.PI);
+    ctx.fillStyle = color;
+    ctx.stroke();
+    ctx.fill();    
+}
