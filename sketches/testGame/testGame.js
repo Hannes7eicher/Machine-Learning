@@ -29,7 +29,7 @@ function setup() {
 }
 
 function gotPoses(poses) {
-    console.log(poses);
+   // console.log(poses);
     if (poses.length > 0) {
         pose = poses[0].pose;
         skeleton = poses[0].skeleton;
@@ -37,7 +37,7 @@ function gotPoses(poses) {
 }
 
 function modelLoaded() {
-    console.log('poseNet ready');
+   // console.log('poseNet ready');
 }
 
 function draw () {
@@ -83,10 +83,11 @@ function ballMove() {
 
   let WristL = pose.leftWrist;
   let WristR = pose.rightWrist;
-  let movingBall = ellipse(x, y, 64, 64);
-  let d = dist(WristL.x, WristL.y, movingBall.width, movingBall.height);
+  let EyeR = pose.rightEye;
+  let EyeL = pose.leftEye;
+  let d = dist(EyeL.x, EyeR.x);
 
-  console.log(d);
+  console.log(dist(EyeL.x, EyeR.x));
 
   //if (x < rightWrist.x + )
 

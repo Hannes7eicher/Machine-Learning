@@ -15,8 +15,8 @@ let body
 
 bodies.addEventListener('bodiesDetected', (e) => {
   body = e.detail.bodies.getBodyAt(0)
-  const distance = Math.round(body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.rightWrist))
-  document.getElementById('output').innerText = `Distance between wrists: ${distance}`
+  const distance = Math.round(body.getDistanceBetweenBodyParts(bodyParts.leftEye, bodyParts.rightEye))
+  document.getElementById('output').innerText = `Distance between Eyes: ${distance}`
   body.getDistanceBetweenBodyParts(bodyParts.leftWrist, bodyParts.rightWrist)
 })
 
@@ -29,7 +29,7 @@ let ctx = canvas.getContext("2d");
 function drawCameraIntoCanvas() {
 
   // draw the video element into the canvas
-  ctx.drawImage(video, 0, 0, video.width, video.height);
+  //ctx.drawImage(video, 0, 0, video.width, video.height);
   
   if (body) {
       // draw circle for left and right wrist
@@ -38,13 +38,7 @@ function drawCameraIntoCanvas() {
 
       // draw left wrist
       ctx.beginPath();
-      ctx.arc(leftWrist.position.x, leftWrist.position.y, 10, 0, 2 * Math.PI);
-      ctx.fillStyle = 'white'
-      ctx.fill()
-
-      // draw right wrist
-      ctx.beginPath();
-      ctx.arc(rightWrist.position.x, rightWrist.position.y, 10, 0, 2 * Math.PI);
+      rect(30, 20, 55, 55, 10);
       ctx.fillStyle = 'white'
       ctx.fill()
   }
