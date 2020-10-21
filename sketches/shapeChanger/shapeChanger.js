@@ -8,7 +8,7 @@ function setup() {
     video = createCapture(VIDEO);
     video.hide();
     poseNet = ml5.poseNet(video, modelLoaded);
-    poseNet.on('poses', gotPoses);
+    poseNet.on('pose', gotPoses);
 }
 
 
@@ -31,8 +31,10 @@ function draw() {
     image(video, 0, 0);
 
     if (pose) {
+        noStroke();
         fill(255, 0, 0);
         ellipse(pose.nose.x, pose.nose.y, 64);
+        
     }
 }
 
