@@ -55,24 +55,35 @@ function draw() {
         let eyeL = pose.leftEye;
         let wristR = pose.rightWrist;
         let wristL = pose.leftWrist;
+        let shoulderR = pose.rightShoulder;
+        let shoulderL = pose.leftShoulder;
+        let elbowR = pose.rightElbow;
+        let elbowL = pose.leftElbow;
+
 
         //change the size of the wrists according to distance between eyes -> distance between user and camera
         let size = dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
         fill(255, 200)
         ellipse(wristR.x, wristR.y, size);
         ellipse(wristL.x, wristL.y, size);
+        ellipse(shoulderR.x, shoulderR.y, size);
+        ellipse(shoulderL.x, shoulderL.y, size);
+        ellipse(elbowR.x, elbowR.y, size);
+        ellipse(elbowL.x, elbowL.y, size);
+
 
         //checking distance between bouncing ball (new Bubble) and wrists 
         var d1 = dist(b1.x, b1.y, wristR.x, wristR.y);
         var d2 = dist(b1.x, b1.y, wristL.x, wristL.y);
+        var d3 = dist(b1.x, b1.y, shoulderR.x, shoulderR.y);
+        var d4 = dist(b1.x, b1.y, shoulderL.x, shoulderL.y);
+        var d5 = dist(b1.x, b1.y, elbowR.x, elbowR.y);
+        var d6 = dist(b1.x, b1.y, elbowL.x, elbowL.y);
 
         //if they collide the bouncing bubble changes color randomly for as long as they touch each other
-        if (d1 < b1.r + size) {
-            b1. changeColor();
+        if (d1 < b1.r + size || d2 < b1.r + size || d3 < b1.r + size || d4 < b1.r + size || d5 < b1.r + size || d6 < b1.r + size) {
+            writeBoom();
         } 
-        if (d2 < b1.r + size) {
-            b1.increaseSpeed();
-        }
     }
 }
 
@@ -80,10 +91,10 @@ function draw() {
 function Bubble(x, y, xspeed, yspeed) {
     this.x = x;
     this.y = y;
-    this.xspeed = -5;
-    this.yspeed = -2;
+    this.xspeed = -2;
+    this.yspeed = -1;
     this.r = 48;
-    this.col = color(255);
+    this.col = color(255, 0, 0);
     this.changeColor = function() {
         this.col = color(random(255), random(255), random(255));
     }
@@ -121,6 +132,11 @@ function Bubble(x, y, xspeed, yspeed) {
         
     }
 } 
+
+function writeBoom() {
+    var x = "BOOM";
+    document.getElementById("demo").innerHTML = x; 
+}
 
 /* Dinas comment 21 Oct 16:12:
 
