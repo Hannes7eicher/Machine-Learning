@@ -67,9 +67,12 @@ function draw() {
         var d2 = dist(b1.x, b1.y, wristL.x, wristL.y);
 
         //if they collide the bouncing bubble changes color randomly for as long as they touch each other
-        if (d1 < b1.r + size || d2 < b1.r + size) {
+        if (d1 < b1.r + size) {
             b1. changeColor();
         } 
+        if (d2 < b1.r + size) {
+            b1.increaseSpeed();
+        }
     }
 }
 
@@ -84,6 +87,17 @@ function Bubble(x, y, xspeed, yspeed) {
     this.changeColor = function() {
         this.col = color(random(255), random(255), random(255));
     }
+    this.increaseSpeed = function() {
+        this.xspeed = this.xspeed * 2;
+        this.yspeed = this.yspeed * 2;
+
+        if (this.xspeed > 20) {
+            this.xspeed = -5;
+            this.yspeed = -2;
+        }
+    }
+
+
 
 
     // A function which is called to draw the bubble
