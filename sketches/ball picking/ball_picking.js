@@ -122,4 +122,19 @@ function Bubble(x, y, xspeed, yspeed) {
     }
 } 
 
+// Dinas comment 21 Oct 16:12:
 
+// Good work! I see it's still in the process
+// of being able to be picked up -> then thrown away.
+
+// From todays work I've thought about how we can challenge
+// the whole bodies flexibility and not loose the meaning
+// of flexibility as 'something that easily adjusts itself to
+// new tasks or circumstances'. In the case of interactivity here,
+// we should add new circumstance and affordance. Example; among
+// many balls x number of those has a color indicating they are 
+// able to be picked up by one hand/ two hands/ right hand etc.
+// Then those balls shift now and then, making the person adjust body and mind new circumstances as time goes.
+// Don't be alarmed of what I'm asking here, it's just to add to future coding goal.
+
+// Let me know what you think.
