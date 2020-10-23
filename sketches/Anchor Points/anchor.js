@@ -33,18 +33,25 @@ function modelLoaded() {
 }
 
 //draw rectangle on top of video capture.
-function drawRect(){
-    fill();
-    rect(127, get.canvas.x, get.canvas.y);
+// function drawRect(){
+//     fill();
+//     rect(127, get.canvas.x, get.canvas.y);
 
     //fill rectangle until the point of transparent circles contour.
+//}
+
+function drawRect() {
+    image(video, 0, 0);
+    rect(0, 0, 620, 440);
+    fill('pink');
 }
 
 function draw() {
     image(video, 0, 0);
+    drawRect();
 
     if(pose) {
-        fill(244, 0, 0);
+        //fill(244, 0, 0);
         ellipse(pose.rightWrist.x, pose.rightWrist.y, 20);
         ellipse(pose.leftWrist.x, pose.leftWrist.y, 20);
         ellipse(pose.rightAnkle.x, pose.rightAnkle.y, 20);
@@ -53,6 +60,9 @@ function draw() {
         ellipse(pose.leftShoulder.x, pose.leftShoulder.y, 20);
         ellipse(pose.leftHip.x, pose.leftHip.y, 20);
         ellipse(pose.rightHip.x, pose.leftHip.y, 20);
+
     }
+    
+
 }
 
