@@ -40,15 +40,26 @@ function modelLoaded() {
     //fill rectangle until the point of transparent circles contour.
 //}
 
-function drawRect() {
-    image(video, 0, 0);
-    rect(0, 0, 620, 440);
-    fill('pink');
-}
+
 
 function draw() {
     image(video, 0, 0);
-    drawRect();
+
+   // function drawRect() {
+        // image(video, 0, 0);
+        rect(0, 0, 620, 440);
+        fill('black');
+        noStroke();
+    
+        erase();
+        ellipse(300, 220, 420);
+        noErase();
+    
+    }
+
+   drawRect();
+
+    //}
 
     if(pose) {
         //fill(244, 0, 0);
@@ -64,5 +75,5 @@ function draw() {
     }
     
 
-}
+
 
