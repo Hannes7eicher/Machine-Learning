@@ -91,8 +91,8 @@ function draw() {
 function Bubble(x, y, xspeed, yspeed) {
     this.x = x;
     this.y = y;
-    this.xspeed = -2;
-    this.yspeed = -1;
+    this.xspeed = -5;
+    this.yspeed = -2;
     this.r = 48;
     this.col = color(255, 0, 0);
     this.changeColor = function() {

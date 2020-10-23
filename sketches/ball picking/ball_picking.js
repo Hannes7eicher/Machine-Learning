@@ -3,13 +3,13 @@ let video;
 let poseNet;
 let pose;
 let skeleton;
-let control = false;
-let remove = false;
+let control;
+let remove;
 
 var b1;
 //var b2;
 
-if (control = true) {
+if (control = 1) {
     controlBall();
     removeOldBall();
 }
@@ -75,8 +75,7 @@ function draw() {
 
         //if they collide the bouncing bubble changes color randomly for as long as they touch each other
         if (d1 < b1.r + size || d2 < b1.r + size) {
-            control = true;
-            remove = true;
+            controlBall();
         } 
     }
 }
@@ -134,15 +133,14 @@ function controlBall() {
     ellipse(ballX, ballY, distance);
     fill("black");
     if (distance > 100) {
-        return (control = false);
+        return;
     }
 }
 
 function removeOldBall() {
     let distance = dist(pose.rightWrist.x, pose.rightWrist.y, pose.leftWrist.x, pose.leftWrist.y);
-    Bubble.r = 0;
     if (distance > 100) {
-        return (remove = false);
+        return;
     }
 }
 
