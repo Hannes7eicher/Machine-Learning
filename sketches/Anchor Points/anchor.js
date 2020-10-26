@@ -17,6 +17,7 @@ function setup(){
     video.hide();
     poseNet = ml5.poseNet(video, modelLoaded);
     poseNet.on('pose', gotPoses);
+    //frameRate(30); // trying for drawing 'reaches'
 }
 
 function gotPoses(poses) {
@@ -38,7 +39,19 @@ function modelLoaded() {
 function draw() {
     
     image(video, 0, 0);
-    drawRect();
+    //drawRect();
+    //reach();
+
+
+    // drawing surrounding rectangles
+
+    //surrounding rectangles
+    rect(0, 0, 620, 55);
+    rect(0, 384, 620, 55);
+    rect(0, 0, 55, 440);
+
+
+    
     
 
     if(pose) {
@@ -52,6 +65,8 @@ function draw() {
         ellipse(pose.leftHip.x, pose.leftHip.y, 20);
         ellipse(pose.rightHip.x, pose.leftHip.y, 20);
 
+
+        
     }
 
       
@@ -63,20 +78,28 @@ function draw() {
         //image(video, 0, 0);
 
         //draw();
+        
+        rect(0, 0, 620, 55);
+        fill('pink');
+        noStroke();
 
-        rect(0, 0, 620, 440);
-        fill('black');
+        rect(0, 0, 620, 55);
+        fill('blue');
         noStroke();
 
     //erases ellipse within black rectangle
-        erase();
-        ellipse(300, 220, 420);
-        noErase();
+        // erase(200, 0);
+        // ellipse(300, 220, 420);
+        // noErase();
 
-        
-        
     
-        
     }
 
-   
+   let reacher;
+
+    function reach() {
+    background(220);
+    stroke(9);
+    line(width/2, 0, width/2, frameCount*0.2);
+}
+      
