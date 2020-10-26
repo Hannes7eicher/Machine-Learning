@@ -47,8 +47,10 @@ function draw() {
 
     //surrounding rectangles
     rect(0, 0, 620, 55);
-    rect(0, 384, 620, 55);
+    rect(0, 385, 620, 55);
     rect(0, 0, 55, 440);
+    rect(565, 0, 55, 440);
+    noStroke();
 
 
     
