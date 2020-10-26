@@ -1,16 +1,16 @@
 let video;
 let pose;
 let poseNet;
-let darkness;
-let darkMove;
-let leftW;
-let rightW;
-let leftA;
-let rightA;
-let canvas;
+// let darkness;
+// let darkMove;
+// let leftW;
+// let rightW;
+// let leftA;
+// let rightA;
+
 
 function setup(){
-    canvas = createCanvas(620, 440);
+    createCanvas(620, 440);
     background(51);
     video = createCapture(VIDEO);
     video.size(620, 440);
@@ -32,37 +32,17 @@ function modelLoaded() {
    console.log('poseNet ready');
 }
 
-//draw rectangle on top of video capture.
-// function drawRect(){
-//     fill();
-//     rect(127, get.canvas.x, get.canvas.y);
-
-    //fill rectangle until the point of transparent circles contour.
-//}
 
 
 
 function draw() {
+    
     image(video, 0, 0);
-
-   // function drawRect() {
-        // image(video, 0, 0);
-        rect(0, 0, 620, 440);
-        fill('black');
-        noStroke();
+    drawRect();
     
-        erase();
-        ellipse(300, 220, 420);
-        noErase();
-    
-    }
-
-   drawRect();
-
-    //}
 
     if(pose) {
-        //fill(244, 0, 0);
+       
         ellipse(pose.rightWrist.x, pose.rightWrist.y, 20);
         ellipse(pose.leftWrist.x, pose.leftWrist.y, 20);
         ellipse(pose.rightAnkle.x, pose.rightAnkle.y, 20);
@@ -73,7 +53,30 @@ function draw() {
         ellipse(pose.rightHip.x, pose.leftHip.y, 20);
 
     }
+
+      
+    }
+ 
+
+// draw rectangle and cut out circle. Supposed to be used so video caption is revealed in the cut out.
+    function drawRect() {
+        //image(video, 0, 0);
+
+        //draw();
+
+        rect(0, 0, 620, 440);
+        fill('black');
+        noStroke();
+
+    //erases ellipse within black rectangle
+        erase();
+        ellipse(300, 220, 420);
+        noErase();
+
+        
+        
     
+        
+    }
 
-
-
+   
