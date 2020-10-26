@@ -36,7 +36,10 @@ function modelLoaded() {
 
 
 function draw() {
+    
     image(video, 0, 0);
+    drawRect();
+    
 
     if(pose) {
        
@@ -55,7 +58,7 @@ function draw() {
     }
  
 
-// draw rectangle and cut out circle. Supposed to be used so video caption revealed in the cut out.
+// draw rectangle and cut out circle. Supposed to be used so video caption is revealed in the cut out.
     function drawRect() {
         //image(video, 0, 0);
 
