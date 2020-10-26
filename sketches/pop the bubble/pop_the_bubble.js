@@ -17,8 +17,8 @@ function setup() {
     video.hide();
     poseNet = ml5.poseNet(video, modelLoaded);
     poseNet.on('pose', gotPoses);
-    createRedBubbles();
-    createGreenBubbles();
+    setInterval(createRedBubbles(), 3000);
+    setInterval(createGreenBubbles(), 3000);
 
 }
 
@@ -41,7 +41,7 @@ function draw() {
     push();
     translate(width,0);
     scale(-1, 1);
-   // image(video, 0, 0);
+    image(video, 0, 0);
     
     if (pose) {
 
@@ -62,9 +62,6 @@ function draw() {
 
         //change the size of the wrists according to distance between eyes -> distance between user and camera
         fill(255, 200)
-
-        //draw circles on right eye
-        //let circleEye = ellipse(eyeR.x, eyeR.y, 64);
 
         for (var i = 0; i < redBubbles.length; i++) {
             redBubbles[i].show();
@@ -104,7 +101,7 @@ class Eye {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.r = 25;
+        this.r = 30
         this.col = ('blue');
     }
 
