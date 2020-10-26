@@ -4,7 +4,8 @@ let video;
 let poseNet;
 let pose;
 let skeleton;
-let bubbles = [];
+let redBubbles = [];
+let greenBubbles = [];
 let eyes = [];
 let count = 0;
 
@@ -16,11 +17,8 @@ function setup() {
     video.hide();
     poseNet = ml5.poseNet(video, modelLoaded);
     poseNet.on('pose', gotPoses);
-
-//for loop which creates bubbles
-    for (i = 0; i < 3; i++) {
-        bubbles[i] = new Bubble(random(600), random(400));
-    }
+    createRedBubbles();
+    createGreenBubbles();
 
 }
 
@@ -43,9 +41,15 @@ function draw() {
     push();
     translate(width,0);
     scale(-1, 1);
-    image(video, 0, 0);
+   // image(video, 0, 0);
     
     if (pose) {
+
+        showBodyParts();
+
+        for (var k = 0; k < eyes.length; k++) {
+            eyes[k].show();
+        }
 
         let eyeR = pose.rightEye;
         let eyeL = pose.leftEye;
@@ -62,35 +66,59 @@ function draw() {
         //draw circles on right eye
         //let circleEye = ellipse(eyeR.x, eyeR.y, 64);
 
-        for (var i = 0; i < bubbles.length; i++) {
-            bubbles[i].display();
-            bubbles[i].update();
+        for (var i = 0; i < redBubbles.length; i++) {
+            redBubbles[i].show();
+            redBubbles[i].update();
             for (var k = 0; k < eyes.length; k++) {
-                if (bubbles[i].intersects(eyes[k])) {
-                    bubbles.splice(i, 1);
+                if (redBubbles[i].intersects(eyes[k])) {
+                    //redBubbles.splice(i, 1);
                     count++;
-                    if (count >= 3) {
+                    if (count >= 10) {
+                        count = 0;
                         alert("GAME OVER");
                     }
                 }   
             }
         }
 
-    
-        for (var k = 0; k < eyes.length; k++) {
-            eyes[k].display();
-    
-        }
-
-        for (var k = 0; k < 1; k++) {
-            eyes[k] = new Bubble(eyeR.x, eyeR.y);
+        for (var j = 0; j < greenBubbles.length; j++) {
+            greenBubbles[j].show();
+            greenBubbles[j].update();
+            for (var k = 0; k < eyes.length; k++) {
+                if (greenBubbles[j].intersects(eyes[k])) {
+                    greenBubbles.splice(j, 1);
+                    count++;
+                    if (count >= 10) {
+                        count = 0;
+                        createGreenBubbles();
+                    }
+                }   
+            }
         }
 
     }
 }
 
 // Object declares how the new Bubble should look and behave
-class Bubble {
+class Eye {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.r = 25;
+        this.col = ('blue');
+    }
+
+    // A function which is called to draw the bubble
+    show = function () {
+        stroke(255);
+        fill(this.col);
+        ellipse(this.x, this.y, this.r * 2, this.r * 2);
+        }
+
+} 
+
+// Object declares how the new Bubble should look and behave
+class Redbubble {
     constructor(x, y, xspeed, yspeed) {
         this.x = x;
         this.y = y;
@@ -100,7 +128,7 @@ class Bubble {
         this.col = ('red');
     }
     // A function which is called to draw the bubble
-display = function () {
+show = function () {
     stroke(255);
     fill(this.col);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
@@ -112,7 +140,7 @@ intersects = function (other)  {
         return true;
     } else {
         return false;
-    }
+    }          
 }   
     
     // function which gives bubble the bouncing behavior and rules for when the bubble should bounce back.
@@ -131,22 +159,67 @@ intersects = function (other)  {
 } 
 
 // Object declares how the new Bubble should look and behave
-class Eye {
-    constructor(x, y) {
+class Greenbubble {
+    constructor(x, y, xspeed, yspeed) {
         this.x = x;
         this.y = y;
-        this.r = 64;
-        this.col = 'blue'
+        this.xspeed = random(-5);
+        this.yspeed = random(-2, 0);
+        this.r = random(20,48);
+        this.col = ('green');
+    }
+    // A function which is called to draw the bubble
+show = function () {
+    stroke(255);
+    fill(this.col);
+    ellipse(this.x, this.y, this.r * 2, this.r * 2);
     }
 
-    show = function () {
-        stroke(255);
-        fill(this.col);
-        ellipse(this.x, this.y, this.r * 2, this.r * 2);
+intersects = function (other)  {
+    var d = dist (this.x, this.y, other.x, other.y);
+    if (d < this.r + other.r) {
+        return true;
+    } else {
+        return false;
+    }          
+}   
+    
+    // function which gives bubble the bouncing behavior and rules for when the bubble should bounce back.
+    update = function () {
+    this.x = +this.x + this.xspeed;
+    this.y = +this.y + this.yspeed;
+    
+        if (this.x > width - this.r || this.x < this.r) {
+            this.xspeed = -this.xspeed;
         }
-
+        if (this.y > height - this.r || this.y < this.r) {
+            this.yspeed = -this.yspeed;
+        }
+    
+    }
 } 
 
 
+createRedBubbles = function() {
+//for loop which creates bubbles
+for (i = 0; i < 3; i++) {
+    redBubbles[i] = new Redbubble(random(600), random(400));
+    }
+}
 
-console.log(bubbles)
+createGreenBubbles = function() {
+    //for loop which creates bubbles
+    for (i = 0; i < 5; i++) {
+        greenBubbles[i] = new Greenbubble(random(600), random(400));
+        }
+    }
+
+showBodyParts = function() {
+    for (var k = 0; k < 1; k++) {
+        eyes[k] = new Eye(pose.rightEye.x, pose.rightEye.y);
+    }
+}
+
+
+
+console.log(redBubbles)
