@@ -3,9 +3,16 @@ let video;
 let poseNet;
 let pose;
 let skeleton;
+let control;
+let remove;
 
 var b1;
 //var b2;
+
+if (control = 1) {
+    controlBall();
+    removeOldBall();
+}
 
 
 //Setting up the video and poseNet
@@ -59,20 +66,17 @@ function draw() {
         //change the size of the wrists according to distance between eyes -> distance between user and camera
         let size = dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y);
         fill(255, 200)
-        ellipse(wristR.x, wristR.y, size);
-        ellipse(wristL.x, wristL.y, size);
+        //ellipse(wristR.x, wristR.y, size);
+        //ellipse(wristL.x, wristL.y, size);
 
         //checking distance between bouncing ball (new Bubble) and wrists 
         var d1 = dist(b1.x, b1.y, wristR.x, wristR.y);
         var d2 = dist(b1.x, b1.y, wristL.x, wristL.y);
 
         //if they collide the bouncing bubble changes color randomly for as long as they touch each other
-        if (d1 < b1.r + size) {
-            b1. changeColor();
+        if (d1 < b1.r + size || d2 < b1.r + size) {
+            controlBall();
         } 
-        if (d2 < b1.r + size) {
-            b1.increaseSpeed();
-        }
     }
 }
 
@@ -121,6 +125,24 @@ function Bubble(x, y, xspeed, yspeed) {
         
     }
 } 
+
+function controlBall() {
+    let distance = dist(pose.rightWrist.x, pose.rightWrist.y, pose.leftWrist.x, pose.leftWrist.y);
+    let ballX = (pose.leftWrist.x + pose.leftWrist.y) / 2;
+    let ballY = (pose.rightWrist.x + pose.rightWrist.y) / 2;
+    ellipse(ballX, ballY, distance);
+    fill("black");
+    if (distance > 100) {
+        return;
+    }
+}
+
+function removeOldBall() {
+    let distance = dist(pose.rightWrist.x, pose.rightWrist.y, pose.leftWrist.x, pose.leftWrist.y);
+    if (distance > 100) {
+        return;
+    }
+}
 
 /* Dinas comment 21 Oct 16:12:
 
