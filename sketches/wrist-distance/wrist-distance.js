@@ -9,7 +9,8 @@ const bodies = new BodyStream ({
       architecture: modelArchitecture.MobileNetV1, 
       detectionType: detectionType.singleBody, 
       videoElement: document.getElementById('video'), 
-      samplingRate: 250})
+      samplingRate: 250
+    })
     
 let body
 
