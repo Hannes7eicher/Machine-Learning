@@ -53,6 +53,10 @@ function drawCameraIntoCanvas() {
       var col2 = rightWrist.speed.absoluteSpeed / 2;
       var col3 = rightHip.speed.absoluteSpeed;
 
+      if (col1 > 150) {
+        ctx.fillStyle = ('black');
+      }
+
         ctx.beginPath();
         ctx.rect(0, 0, 540, 480);
         ctx.fillStyle = 'rgb('+ col1 + ', '+ col2 + ', '+ col3 + ')';
