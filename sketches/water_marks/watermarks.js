@@ -24,14 +24,6 @@ function setup(){
     video.hide();
     poseNet = ml5.poseNet(video, modelLoaded);
     poseNet.on('pose', gotPoses);
-    x = 0;
-    speed = 3;
-    el1 = 0;
-    el2 = 0;
-    el3 = 0;
-    el4 = 0;
-    el5 = 0;
-    el6 = 0;
     
 
 
@@ -61,76 +53,17 @@ function draw() {
     //reach();
 
     // drawing surrounding rectangles
-    fill('pink');
+
     //surrounding rectangles
     rect(0, 0, 620, 55);
     rect(0, 385, 620, 55);
     rect(0, 0, 55, 440);
     rect(565, 0, 55, 440);
-    
-
-    el1 = el1 + speed;
-        if (el1 > width) {
-            speed *= -1;
-        }
-        if (el1 == 0) {
-            speed *= -1;
-        }
-
-    el2 = el2 + speed;
-        if (el2 > width) {
-            speed *= -1;
-        }
-        if (el2 == 0) {
-            speed *= -1;
-        }
-
-    el3 = el3 + speed;
-        if (el3 > width) {
-            speed *= -1;
-        }
-        if (el3 == 0) {
-            speed *= -1;
-        }
-
-    el4 = el4 + speed;
-        if (el4 > width) {
-            speed *= -1;
-        }
-        if (el4 == 0) {
-            speed *= -1;
-        }
-
-    el5 = el5 + speed;
-        if (el5 > width) {
-            speed *= -1;
-        }
-        if (el5 == 0) {
-            speed *= -1;
-        }
-
-     el6 = el6 + speed;
-        if (el6 > width) {
-            speed *= -1;
-        }
-        if (el6 == 0) {
-            speed *= -1;
-        }    
-
-        ellipse(el1, 67, 40, 40);
-        ellipse(el2, 127, 40, 40);
-        ellipse(el3, 187, 40, 40);
-        ellipse(el4, 247, 40, 40);
-        ellipse(el5, 307, 40, 40);
-        ellipse(el6, 367, 40, 40);
-
-        noStroke();
-
-
-        fill('honeydew');
+    fill('pink');
+    noStroke();
 
     if(pose) {
-        
+       
         ellipse(pose.rightWrist.x, pose.rightWrist.y, 20);
         ellipse(pose.leftWrist.x, pose.leftWrist.y, 20);
         ellipse(pose.rightAnkle.x, pose.rightAnkle.y, 20);
@@ -138,9 +71,7 @@ function draw() {
         ellipse(pose.rightShoulder.x, pose.rightShoulder.y, 20);
         ellipse(pose.leftShoulder.x, pose.leftShoulder.y, 20);
         ellipse(pose.leftHip.x, pose.leftHip.y, 20);
-        ellipse(pose.rightHip.x, pose.rightHip.y, 20);
-        ellipse(pose.rightKnee.x, pose.rightKnee.y, 20);
-        ellipse(pose.leftKnee.x, pose.leftKnee.y, 20);
+        ellipse(pose.rightHip.x, pose.leftHip.y, 20);
 
         
     }

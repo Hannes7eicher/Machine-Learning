@@ -24,16 +24,37 @@ function setup(){
     video.hide();
     poseNet = ml5.poseNet(video, modelLoaded);
     poseNet.on('pose', gotPoses);
-    x = 0;
-    speed = 3;
-    el1 = 0;
-    el2 = 0;
-    el3 = 0;
-    el4 = 0;
-    el5 = 0;
-    el6 = 0;
     
 
+    // copy from P5 example: https://p5js.org/examples/motion-morph.html
+    // Create a circle using vectors pointing from center
+  for (let angle = 0; angle < 360; angle += 9) {
+    // Note we are not starting from 0 in order to match the
+    // path of a circle.
+    let v = p5.Vector.fromAngle(radians(angle - 135));
+    v.mult(100);
+    circle.push(v);
+    // Let's fill out morph ArrayList with blank PVectors while we are at it
+    morph.push(createVector());
+  }
+
+  // A square is a bunch of vertices along straight lines
+  // Top of square
+  for (let x = -50; x < 50; x += 10) {
+    square.push(createVector(x, -50));
+  }
+  // Right side
+  for (let y = -50; y < 50; y += 10) {
+    square.push(createVector(50, y));
+  }
+  // Bottom
+  for (let x = 50; x > -50; x -= 10) {
+    square.push(createVector(x, 50));
+  }
+  // Left side
+  for (let y = 50; y > -50; y -= 10) {
+    square.push(createVector(-50, y));
+  }
 
 }
 
@@ -55,82 +76,24 @@ function modelLoaded() {
 
 function draw() {
     
-    background(20, 20);
     //image(video, 0, 0);
     //drawRect();
     //reach();
 
+    background('grey');
+
     // drawing surrounding rectangles
-    fill('pink');
+
     //surrounding rectangles
     rect(0, 0, 620, 55);
     rect(0, 385, 620, 55);
     rect(0, 0, 55, 440);
     rect(565, 0, 55, 440);
-    
-
-    el1 = el1 + speed;
-        if (el1 > width) {
-            speed *= -1;
-        }
-        if (el1 == 0) {
-            speed *= -1;
-        }
-
-    el2 = el2 + speed;
-        if (el2 > width) {
-            speed *= -1;
-        }
-        if (el2 == 0) {
-            speed *= -1;
-        }
-
-    el3 = el3 + speed;
-        if (el3 > width) {
-            speed *= -1;
-        }
-        if (el3 == 0) {
-            speed *= -1;
-        }
-
-    el4 = el4 + speed;
-        if (el4 > width) {
-            speed *= -1;
-        }
-        if (el4 == 0) {
-            speed *= -1;
-        }
-
-    el5 = el5 + speed;
-        if (el5 > width) {
-            speed *= -1;
-        }
-        if (el5 == 0) {
-            speed *= -1;
-        }
-
-     el6 = el6 + speed;
-        if (el6 > width) {
-            speed *= -1;
-        }
-        if (el6 == 0) {
-            speed *= -1;
-        }    
-
-        ellipse(el1, 67, 40, 40);
-        ellipse(el2, 127, 40, 40);
-        ellipse(el3, 187, 40, 40);
-        ellipse(el4, 247, 40, 40);
-        ellipse(el5, 307, 40, 40);
-        ellipse(el6, 367, 40, 40);
-
-        noStroke();
-
-
-        fill('honeydew');
+    fill('pink');
+    //noStroke();
 
     if(pose) {
-        
+       
         ellipse(pose.rightWrist.x, pose.rightWrist.y, 20);
         ellipse(pose.leftWrist.x, pose.leftWrist.y, 20);
         ellipse(pose.rightAnkle.x, pose.rightAnkle.y, 20);
@@ -138,19 +101,60 @@ function draw() {
         ellipse(pose.rightShoulder.x, pose.rightShoulder.y, 20);
         ellipse(pose.leftShoulder.x, pose.leftShoulder.y, 20);
         ellipse(pose.leftHip.x, pose.leftHip.y, 20);
-        ellipse(pose.rightHip.x, pose.rightHip.y, 20);
-        ellipse(pose.rightKnee.x, pose.rightKnee.y, 20);
-        ellipse(pose.leftKnee.x, pose.leftKnee.y, 20);
+        ellipse(pose.rightHip.x, pose.leftHip.y, 20);
 
         
     }
+
+// Copy from P5 example: https://p5js.org/examples/motion-morph.html
+
+// We will keep how far the vertices are from their target
+let totalDistance = 0;
+
+// Look at each vertex
+for (let i = 0; i < circle.length; i++) {
+  let v1;
+  // Are we lerping to the circle or square?
+  if (state) {
+    v1 = circle[i];
+  } else {
+    v1 = square[i];
+  }
+  // Get the vertex we will draw
+  let v2 = morph[i];
+  // Lerp to the target
+  v2.lerp(v1, 0.1);
+  // Check how far we are from target
+  totalDistance += p5.Vector.dist(v1, v2);
+}
+
+// If all the vertices are close, switch shape
+if (totalDistance < 0.1) {
+  state = !state;
+}
+
+// Draw relative to center
+translate(width / 2, height / 2);
+strokeWeight(4);
+// Draw a polygon that makes up all the vertices
+beginShape();
+noFill();
+stroke(255);
+
+morph.forEach(v => {
+  vertex(v.x, v.y);
+});
+endShape(CLOSE);
+    
+    
+
+   
 
       
     }
  
 
 // draw rectangle and cut out circle. Supposed to be used so video caption is revealed in the cut out.
-// NOT USED ATM
     function drawRect() {
         //image(video, 0, 0);
 
@@ -171,8 +175,6 @@ function draw() {
 
     
     }
-
-    // NOT USED ATM
 
    let reacher;
 
