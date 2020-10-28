@@ -63,14 +63,7 @@ function setup(){
     video.size(620, 440);
     video.hide();
     poseNet = ml5.poseNet(video, modelLoaded);
-    poseNet.on('pose', gotPoses);
-
-
-    // color variables for ellipses
-    let p = color('pink');
-    let m = color('midnight blue'); 
-    
-    
+    poseNet.on('pose', gotPoses);    
     
 
 
@@ -93,6 +86,10 @@ function modelLoaded() {
 
 
 function draw() {
+
+        // color variables for ellipses
+        let p = color('pink');
+        let m = color('midnight blue'); 
     
     background(20, 40);
     //image(video, 0, 0);
