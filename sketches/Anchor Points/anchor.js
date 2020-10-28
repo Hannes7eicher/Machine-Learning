@@ -45,14 +45,7 @@ function setup(){
     video.size(620, 440);
     video.hide();
     poseNet = ml5.poseNet(video, modelLoaded);
-    poseNet.on('pose', gotPoses);
-
-
-    // color variables for ellipses
-    let p = color('pink');
-    let m = color('midnight blue'); 
-    
-    
+    poseNet.on('pose', gotPoses);    
     
 
 
@@ -75,6 +68,10 @@ function modelLoaded() {
 
 
 function draw() {
+
+        // color variables for ellipses
+        let p = color('pink');
+        let m = color('midnight blue'); 
     
     background(20, 40);
     //image(video, 0, 0);
@@ -84,24 +81,25 @@ function draw() {
     // drawing surrounding rectangles
     //fill('m');
     //surrounding rectangles
-<<<<<<< HEAD
+    
     rect(0, 0, 620, 55);
     rect(0, 385, 620, 55);
     rect(0, 0, 55, 440);
     rect(565, 0, 55, 440);
 
     ellipse(el1, 67, 40, 40);
+    fill(p);
     ellipse(el2, 127, 40, 40);
+    fill(m);
     ellipse(el3, 187, 40, 40);
     ellipse(el4, 247, 40, 40);
     ellipse(el5, 307, 40, 40);
     ellipse(el6, 367, 40, 40);
-=======
     // rect(0, 0, 620, 55);
     // rect(0, 385, 620, 55);
     // rect(0, 0, 55, 440);
     // rect(565, 0, 55, 440);
->>>>>>> 246ecd7d90a0f24d03637890127f4d513bf68fae
+
     
 
    /// ellipse along y axis
@@ -194,15 +192,14 @@ function draw() {
         if (el6 == 0) {
             speed *= -1;
         } 
-
-<<<<<<< HEAD
+ 
         noStroke();
-=======
+
         //reading position of body parts to manipulate ellipses 
         // if (pose.leftWrist.y || pose.rightWrist.y < pose.nose.y) {
 
         //     el2 = 3;
->>>>>>> 246ecd7d90a0f24d03637890127f4d513bf68fae
+
 
         // }
 
