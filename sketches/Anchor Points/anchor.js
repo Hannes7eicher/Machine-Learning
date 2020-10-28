@@ -67,6 +67,13 @@ function draw() {
     rect(0, 385, 620, 55);
     rect(0, 0, 55, 440);
     rect(565, 0, 55, 440);
+
+    ellipse(el1, 67, 40, 40);
+    ellipse(el2, 127, 40, 40);
+    ellipse(el3, 187, 40, 40);
+    ellipse(el4, 247, 40, 40);
+    ellipse(el5, 307, 40, 40);
+    ellipse(el6, 367, 40, 40);
     
 
     el1 = el1 + speed;
@@ -116,13 +123,6 @@ function draw() {
         if (el6 == 0) {
             speed *= -1;
         }    
-
-        ellipse(el1, 67, 40, 40);
-        ellipse(el2, 127, 40, 40);
-        ellipse(el3, 187, 40, 40);
-        ellipse(el4, 247, 40, 40);
-        ellipse(el5, 307, 40, 40);
-        ellipse(el6, 367, 40, 40);
 
         noStroke();
 

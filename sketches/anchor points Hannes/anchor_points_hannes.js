@@ -86,7 +86,7 @@ function draw() {
     display = function () {
         stroke(255);
         fill(this.col);
-        rect(this.x, this.y, this.width, this.height);
+        ellipse(this.x, this.y, this.width, this.height);
         }
 
         
