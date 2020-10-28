@@ -7,8 +7,7 @@ let skeleton;
 let redBubbles = [];
 let greenBubbles = [];
 let eyes = [];
-let count = 0;
-let countR = 1;
+let countR = 0;
 let countG = 1;
 
 
@@ -21,6 +20,7 @@ function setup() {
     poseNet.on('pose', gotPoses);
     createRedBubbles();
     createGreenBubbles();
+
 }
 
 
@@ -45,7 +45,6 @@ function draw() {
     image(video, 0, 0);
     
     if (pose) {
-        console.log(pose);
 
         showBodyParts();
 
@@ -70,11 +69,8 @@ function draw() {
             redBubbles[i].update();
             for (var k = 0; k < eyes.length; k++) {
                 if (redBubbles[i].intersects(eyes[k])) {
-                    count++;
-                    if (count >= 10) {
-                        count = 0;
-                       // alert("GAME OVER");
-                    }
+                    //alert("GAME OVER");
+                    //startOver();
                 }   
             }
         }
@@ -85,12 +81,13 @@ function draw() {
             for (var k = 0; k < eyes.length; k++) {
                 if (greenBubbles[j].intersects(eyes[k])) {
                     greenBubbles.splice(j, 1);
-                    count++;
-                    if (count >= 10) {
-                        count = 0;
-                        createGreenBubbles();
-                    }
                 }   
+                if (greenBubbles.length < 1) {
+                createGreenBubbles();
+                countR++;
+                console.log(countR);
+                createRedBubbles();
+                }
             }
         }
 
@@ -122,7 +119,7 @@ class Redbubble {
         this.y = y;
         this.xspeed = random(-5);
         this.yspeed = random(-2, 0);
-        this.r = 48;
+        this.r = 35;
         this.col = ('red');
     }
     // A function which is called to draw the bubble
@@ -163,7 +160,7 @@ class Greenbubble {
         this.y = y;
         this.xspeed = random(-5);
         this.yspeed = random(-2, 0);
-        this.r = random(20,48);
+        this.r = random(25,48);
         this.col = ('green');
     }
     // A function which is called to draw the bubble
@@ -200,23 +197,37 @@ intersects = function (other)  {
 
 createRedBubbles = function() {
 //for loop which creates bubbles
-for (i = 0; i < 3; i++) {
+for (i = 0; i < countR; i++) {
     redBubbles[i] = new Redbubble(random(600), random(400));
     }
 }
 
 createGreenBubbles = function() {
     //for loop which creates bubbles
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 10; i++) {
         greenBubbles[i] = new Greenbubble(random(600), random(400));
         }
     }
 
 showBodyParts = function() {
-    for (var k = 0; k < 1; k++) {
-        eyes[k] = new Eye(pose.rightEye.x, pose.rightEye.y);
-    }
+    eyes[0] = new Eye(pose.rightEye.x, pose.rightEye.y);
+    eyes[1] = new Eye(pose.leftEye.x, pose.leftEye.y);
+    eyes[2] = new Eye(pose.rightEar.x, pose.leftEar.y);
+    eyes[3] = new Eye(pose.leftEar.x, pose.leftEar.y);
+}    
+
+// showBodyParts = function() {
+//     for (var k = 0; k < 1; k++) {
+//         eyes[k] = new Eye(pose.rightEye.x, pose.rightEye.y);
+//     }
+// }
+
+startOver = function() {
+    fill(200);
+    rect(50, 120, 500, 300); // Draw gray rectangle using CENTER mode
+    draw.stop();
 }
+
 
 
         // let speed =  {
