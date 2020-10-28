@@ -8,6 +8,8 @@ let redBubbles = [];
 let greenBubbles = [];
 let eyes = [];
 let count = 0;
+let countR = 1;
+let countG = 1;
 
 
 //Setting up the video and poseNet
@@ -17,14 +19,13 @@ function setup() {
     video.hide();
     poseNet = ml5.poseNet(video, modelLoaded);
     poseNet.on('pose', gotPoses);
-    setInterval(createRedBubbles(), 3000);
-    setInterval(createGreenBubbles(), 3000);
-
+    createRedBubbles();
+    createGreenBubbles();
 }
 
 
 function gotPoses(poses) {
-    // console.log(poses);
+     //console.log(poses);
      if (poses.length > 0) {
          pose = poses[0].pose;
          skeleton = poses[0].skeleton;
@@ -44,6 +45,7 @@ function draw() {
     image(video, 0, 0);
     
     if (pose) {
+        console.log(pose);
 
         showBodyParts();
 
@@ -68,11 +70,10 @@ function draw() {
             redBubbles[i].update();
             for (var k = 0; k < eyes.length; k++) {
                 if (redBubbles[i].intersects(eyes[k])) {
-                    //redBubbles.splice(i, 1);
                     count++;
                     if (count >= 10) {
                         count = 0;
-                        alert("GAME OVER");
+                       // alert("GAME OVER");
                     }
                 }   
             }
@@ -218,5 +219,18 @@ showBodyParts = function() {
 }
 
 
+        // let speed =  {
+        //     vector: { x: 0, y: 0 }, 
+        //     absoluteSpeed: 0
+        // }
 
-console.log(redBubbles)
+        //   // calculates speed
+        //   const distanceX = curr.position.x - prev.position.x // distance along x-axis
+        //   const distanceY = curr.position.y - prev.position.y // distance along y-axis
+        //   const speedX = distanceX / (timeLapsed/1000)
+        //   const speedY = distanceY / (timeLapsed/1000) 
+        //   speed = {
+        //     vector: { x: speedX, y: speedY }, 
+        //     absoluteSpeed: Math.hypot(speedX, speedY)}
+
+            
