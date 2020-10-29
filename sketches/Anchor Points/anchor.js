@@ -40,7 +40,7 @@ let el3 = 0;
 let el4 = 0;
 let el5 = 0;
 let el6 = 0;
-// variables for ellipses on y axis
+// variables for ellipses starting point on y axis
 let el7 = 0;
 let el8 = 0;
 let el9 = 0;
@@ -70,7 +70,7 @@ function setup(){
 }
 
 function gotPoses(poses) {
-    console.log(poses);
+    //console.log(poses);
     if (poses.length > 0) {
         pose = poses[0].pose;
         skeleton = poses[0].skeleton;
@@ -248,6 +248,7 @@ function draw() {
                 speed12 *= -1;
             } 
 
+            console.log(el5);
         //reading position of body parts to manipulate individual ellipses behavior
 
         if (pose.leftWrist.y || pose.rightWrist.y < pose.nose.y) {
